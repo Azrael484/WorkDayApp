@@ -1,58 +1,72 @@
-body {
-  font-family: 'Dancing Script', sans-serif;
-  font-size: 16px;
+/*Setting style properties to be applied throughtout the page*/
+
+:root{
+  font-size:16px;
+  --border-radius: 15px;
+  --border-text-color-dark: black;
+  --border-text-color-light: white;
+  --past-color: #d3d3d3;
+  --present-color: #ff6961;
+  --future-color: #77dd77;
+}
+/*Choosing a font-family for the page*/
+
+body{
+  font-family: 'Dancing Script', 'cursive';
 }
 
-textarea {
+/*Rounding the corners of each time block*/
+
+.time-block {
+  border-radius: var(--border-radius);
+}
+
+/* Setting the main properties of the text areas, most importantly the transparent background*/
+
+.time-block .description {
   background: transparent;
   border: none;
   resize: none;
-  color: #000000;
-  border-left: 1px solid black;
+  color: var(--border-text-color-dark);
+  border-left: 1px solid var(--border-text-color-dark);
   padding: 10px;
-}
-
-.description {
   white-space: pre-wrap;
 }
 
-.time-block {
-  border-radius: 15px;
-}
+/*Giving a definite top border to each "div" element tagged with a "hour-*" id*/
 
 .row {
-  border-top: 1px solid white;
+  border-top: 1px solid var(--border-text-color-light);
 }
 
-.hour {
-  color: #000000;
-  border-top: 1px dashed #000000;
-}
+/*Specifying the bg-colors that will be dynamically applied to the time blocks depending on where they lie on the arrow of time*/
+
 
 .past {
-  background-color: #d3d3d3;
-  color: white;
+  background-color: var(--past-color);
 }
 
 .present {
-  background-color: #ff6961;
-  color: white;
+  background-color: var(--present-color);
+  
 }
 
 .future {
-  background-color: #77dd77;
-  color: white;
+  background-color: var(--future-color);
+  
 }
 
+/*Stipulating the default look of the save button and how it will look when hovering over it (pseudo-class/state selector)*/
+
 .saveBtn {
-  border-left: 1px solid black;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  color: white;
+  border-left: 1px solid var(--border-text-color);
+  border-top-right-radius: var( --border-radius);
+  border-bottom-right-radius:var( --border-radius);
+  color: var(--border-text-color-light);
 }
 
 .saveBtn i:hover {
-  font-size: 20px;
+  font-size: 1.25rem;
   transition: all 0.3s ease-in-out;
 }
 
