@@ -9,30 +9,35 @@ $(window).on("load", function () { //This function will only execute after the e
     var presentTime = today.format('[Today is] dddd, MMMM D, YYYY [and the current hour is] hh:mm:ss a[.]');
     $('#currentDay').text(presentTime).addClass("text-center");
 
-    if (dayjs().minute()===0&&dayjs().second()==0){ // Will reload the page every hour on the hour.
+    if (dayjs().minute()===0&&dayjs().second()==0){ // Will reload the page every hour on the hour, so as to re-apply the appropriate colors to the time blocks.
 
       location.reload;
-    
-    };
 
-  }, 1000);
+    }
+    if(dayjs().hour()===0){
 
-   //Applies color coding scheme to the distinct time blocks depending whether they refer to past, present, or future events.
+      localStorage.clear(); //Clears the localStorage at midnight so as to start the day anew.
+
+    }
+
+  }, 1000); //The arrow function is executed every second(=1000ms).
+
+   //Applies color coding scheme to the distinct time blocks depending whether they refer to past("gray"), present("red"), or future("green") events.
 
   function colorCodeHours() {
 
-    var presentHour = dayjs().hour();
+    var presentHour = dayjs().hour(); // Stores the actual hour for comparison purposes. See conditional statements below.
 
     console.log(presentHour);
 
-    var schedHours = $('.time-block'); //array composed of the <div>s that belong to the class ".time-block"
+    var schedHours = $('.time-block'); //Returns an array composed of the <div>s that belong to the class ".time-block"
 
     console.log(schedHours);
 
 /* Looping through each of the elements in the "schedHours" array, applying the anonymous callback function*/
   schedHours.each(function (){
 
-      var schedHourId = $(this).attr("id"); //Get the value of the id attribute of the array element
+      var schedHourId = $(this).attr("id"); //Get the value of the id attribute of the array element that is being dealt with in the current iteration of the loop
 
       console.log(schedHourId);
 
@@ -64,9 +69,9 @@ $(window).on("load", function () { //This function will only execute after the e
 
   colorCodeHours(); 
 
-  //Adding event listeners to the buttons, in order for the textarea input to be saved to client-side storage
+  //Adding event listeners to the buttons with the floppy disc icons, in order for the textarea input to be saved to client-side storage
 
-  $('.saveBtn').on('click', storeTasks); 
+  $('.saveBtn').on('click', storeTasks); //Hoisting the event-handler.
 
   // Declaring the event-handler for all possible clicking events in any of the ".saveBtn" buttons
 
@@ -78,34 +83,36 @@ $(window).on("load", function () { //This function will only execute after the e
 
     var tasksToDo = $(element).siblings('.description').val(); //Read the input entered to the text-area by the user
 
-    var savedOrNot = $(element).children();
+    var savedOrNot = $(element).children(); // Stores a reference to the only DOM node that is a descendant of the ".saveBtn" button
 
-    savedOrNot.text('Saved');
+    savedOrNot.text('Saved'); //Updates the text content of the <i> selected.
 
-    localStorage.setItem(timeBlock, tasksToDo);
+    localStorage.setItem(timeBlock, tasksToDo); //Writes the input data from the text area into local storage.
 
     console.log(localStorage);
 
 
   }
 
+  // Algorithm for retrieving the data saved on local storage that persists even after reloading/closing the tab
+
   function displayTasks(){
 
-    $('.time-block').each(function (){
+    $('.time-block').each(function (){ //Loops through all <div>s that belong to the given class.
 
-      var timeBlock = $(this).attr('id')
+      var timeBlock = $(this).attr('id') //Gets and stores the "id" attribute of the <div> currently being dealt with
 
-      var displayTasksEl = $(this).children().eq(1);
+      var displayTasksEl = $(this).children().eq(1); //Stores a reference to the coresponding text-area (where data will be displayed)
 
-      console.log(displayTasksEl);
+      var tasksToDo = localStorage.getItem(timeBlock); // Gets data from client-side storage and stores the string into the variable
 
-      displayTasksEl.text(localStorage.getItem(timeBlock));
+      displayTasksEl.text(tasksToDo); //Updates the content of the text area on load, showing whatever tasks/activities where already saved.
 
     })
   }
 
 
-displayTasks();
+displayTasks();//Invoking the function in order to display the tasks scheduled for each working hour.
 
 
 })
