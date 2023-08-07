@@ -87,6 +87,8 @@ $(window).on("load", function () { //This function will only execute after the e
 
     savedOrNot.text('Saved'); //Updates the text content of the <i> selected.
 
+    $(element).addClass("btn-success").removeClass("btn-warning"); //Using Bootstrap utilities, it changes the color of the save button
+
     localStorage.setItem(timeBlock, tasksToDo); //Writes the input data from the text area into local storage.
 
     console.log(localStorage);
