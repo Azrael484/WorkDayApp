@@ -27,6 +27,8 @@ By clicking on the button found to the right of the text area, the user input wi
 This Web App is of the authorship of Jonathan Maldonado Guemarez. The public repo can be found at :
 https://github.com/jguemarez/WorkDayApp.git
 
+The starter code from which it was developed is due to Xandromus and can be found in: https://github.com/coding-boot-camp/crispy-octo-meme
+
 The Normalize.css (used to do a CSS reset) was downloaded from: https://necolas.github.io/normalize.css/
 
 The .gitignore file was taken from the BootCamp repo located at: https://git.bootcampcontent.com/
