@@ -9,12 +9,12 @@ $(window).on("load", function () { //This function will only execute after the e
     var presentTime = today.format('[Today is] dddd, MMMM D, YYYY [and the current hour is] hh:mm:ss a[.]');
     $('#currentDay').text(presentTime).addClass("text-center");
 
-    if (dayjs().minute()===0&&dayjs().second()==0){ // Will reload the page every hour on the hour, so as to re-apply the appropriate colors to the time blocks.
+    if (dayjs().minute()===0 && dayjs().second()==0){ // Will reload the page every hour on the hour, so as to re-apply the appropriate colors to the time blocks.
 
       location.reload;
 
     }
-    if(dayjs().hour()===0){
+    if(dayjs().hour()===0 && dayjs().minute()===0 && dayjs().second()==0){
 
       localStorage.clear(); //Clears the localStorage at midnight so as to start the day anew.
 
